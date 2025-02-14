@@ -148,20 +148,15 @@ const createTaskDefinition = (
                         .unsafeUnwrap(),
                     DD_SITE: props.dataDogDomain,
                     ECS_FARGATE: 'true',
-
                     DD_LOG_LEVEL: 'debug',
-                    DD_LOGS_CONFIG_USE_HTTP: 'true',
-
                     DD_APM_ENABLED: 'true',
                     DD_APM_NON_LOCAL_TRAFFIC: 'true',
                     DD_DOGSTATSD_NON_LOCAL_TRAFFIC: 'true',
                     DD_LOGS_CONFIG_DOCKER_CONTAINER_USE_FILE: 'true',
                     DD_LOGS_ENABLED: 'true',
                     DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL: 'true',
-                    // DD_CONTAINER_INCLUDE_LOGS: '*',
                     DD_ENV: props.stage,
                     DD_SERVICE: props.serviceName,
-                    // DD_CONTAINER_EXCLUDE: '*datadog-agent*',
                 },
                 essential: true,
                 memoryLimitMiB: 256,
@@ -251,55 +246,6 @@ const createTaskDefinition = (
         )
     }
 
-    // const cwAgentLogGroup = new logs.LogGroup(
-    //     stack,
-    //     `${props.serviceName}CWAgentLogGroup`,
-    //     {
-    //         logGroupName: `${
-    //             props.layerzeroPrefix
-    //         }-${props.serviceName.toLocaleLowerCase()}-cw-agent`,
-    //     },
-    // )
-    //
-    // cwAgentLogGroup.applyRemovalPolicy(RemovalPolicy.DESTROY)
-    //
-    // const cloudwatchAgentTaskDefinition = taskDefinition.addContainer(
-    //     `${props.serviceName}cw-agent`,
-    //     {
-    //         image: ecs.ContainerImage.fromRegistry(
-    //             'public.ecr.aws/cloudwatch-agent/cloudwatch-agent:latest',
-    //         ),
-    //         memoryLimitMiB: 384,
-    //         cpu: 200,
-    //         environment: {
-    //             CW_CONFIG_CONTENT: '{"logs":{"metrics_collected":{"emf":{}}}}',
-    //         },
-    //         logging: ecs.LogDriver.awsLogs({
-    //             logGroup: cwAgentLogGroup,
-    //             streamPrefix: 'cw-agent',
-    //         }),
-    //         portMappings: [
-    //             {
-    //                 containerPort: 25888,
-    //                 hostPort: 25888,
-    //                 protocol: ecs.Protocol.TCP,
-    //             },
-    //         ],
-    //         healthCheck: {
-    //             command: [
-    //                 'CMD',
-    //                 '/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent',
-    //                 '--version',
-    //             ],
-    //             interval: Duration.seconds(30),
-    //             timeout: Duration.seconds(5),
-    //             retries: 3,
-    //             startPeriod: Duration.seconds(60),
-    //         },
-    //     },
-    // )
-    // deps.push({ container: cloudwatchAgentTaskDefinition, condition: ecs.ContainerDependencyCondition.HEALTHY })
-
     workerTaskDefinition.addContainerDependencies(...deps)
 
     workerTaskDefinition.addUlimits({
@@ -307,12 +253,6 @@ const createTaskDefinition = (
         name: ecs.UlimitName.NOFILE,
         softLimit: 65535,
     })
-
-    // cloudwatchAgentTaskDefinition.addUlimits({
-    //     hardLimit: 65535,
-    //     name: ecs.UlimitName.NOFILE,
-    //     softLimit: 65535,
-    // })
 
     return taskDefinition
 }
