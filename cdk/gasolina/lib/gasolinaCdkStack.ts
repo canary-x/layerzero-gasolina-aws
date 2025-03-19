@@ -1,11 +1,14 @@
-import { StackProps } from 'aws-cdk-lib'
-import { Construct } from 'constructs'
-import fs from 'fs'
-import path from 'path'
+import { StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import fs from 'fs';
+import path from 'path';
 
-import { CONFIG } from '../config'
-import { LZCdkStack } from './cdk-stack'
-import { createGasolinaService } from './gasolinaApi'
+
+
+import { CONFIG } from '../config';
+import { LZCdkStack } from './cdk-stack';
+import { createGasolinaService } from './gasolinaApi';
+
 
 export class GasolinaCdkStack extends LZCdkStack {
     constructor(scope: Construct, id: string, props?: StackProps) {
@@ -52,6 +55,9 @@ export class GasolinaCdkStack extends LZCdkStack {
             dataDogDomain: config.dataDogDomain,
             minReplicas: config.minReplicas,
             maxReplicas: config.maxReplicas,
+            verifyCerts: config.verifyCerts ?? 'false',
+            failOnInvalidCert: config.failOnInvalidCert ?? 'false',
+            verifyCertsDebug: config.verifyCertsDebug ?? 'false',
         })
     }
 }
