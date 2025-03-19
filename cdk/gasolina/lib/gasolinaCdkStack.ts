@@ -1,13 +1,11 @@
-import { StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-import fs from 'fs';
-import path from 'path';
+import { StackProps } from 'aws-cdk-lib'
+import { Construct } from 'constructs'
+import fs from 'fs'
+import path from 'path'
 
-
-
-import { CONFIG } from '../config';
-import { LZCdkStack } from './cdk-stack';
-import { createGasolinaService } from './gasolinaApi';
+import { CONFIG } from '../config'
+import { LZCdkStack } from './cdk-stack'
+import { createGasolinaService } from './gasolinaApi'
 
 
 export class GasolinaCdkStack extends LZCdkStack {
