@@ -17,6 +17,9 @@ const serviceName = 'Gasolina'
 const LAYERZERO_PREFIX = 'layerzero'
 
 interface CreateGasolinaServiceProps {
+    verifyCerts: string
+    failOnInvalidCert: string
+    verifyCertsDebug: string
     stack: Stack
     vpc: ec2.Vpc
     cluster: ecs.Cluster
@@ -150,6 +153,9 @@ export const createGasolinaService = (props: CreateGasolinaServiceProps) => {
                 DD_DOGSTATSD_PORT: '8125',
                 // DD_TRACE_DEBUG: 'true',
             }),
+            PROVIDER_VERIFY_CERTS: props.verifyCerts,
+            FAIL_ON_INVALID_CERT: props.failOnInvalidCert,
+            VERIFY_CERT_DEBUG: props.verifyCertsDebug,
             NPM_TOKEN: 'foobar',
             [ENV_VAR_NAMES.LZ_ENV]: props.environment,
             [ENV_VAR_NAMES.LZ_CDK_DEPLOY_REGION]: props.stack.region,

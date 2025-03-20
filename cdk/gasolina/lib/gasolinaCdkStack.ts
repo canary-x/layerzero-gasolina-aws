@@ -7,6 +7,7 @@ import { CONFIG } from '../config'
 import { LZCdkStack } from './cdk-stack'
 import { createGasolinaService } from './gasolinaApi'
 
+
 export class GasolinaCdkStack extends LZCdkStack {
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props)
@@ -52,6 +53,9 @@ export class GasolinaCdkStack extends LZCdkStack {
             dataDogDomain: config.dataDogDomain,
             minReplicas: config.minReplicas,
             maxReplicas: config.maxReplicas,
+            verifyCerts: config.verifyCerts ?? 'false',
+            failOnInvalidCert: config.failOnInvalidCert ?? 'false',
+            verifyCertsDebug: config.verifyCertsDebug ?? 'false',
         })
     }
 }
