@@ -32,8 +32,8 @@ export const CONFIG: {
         // Optionally add a log intake server for datadog. Note: this is based on the region of your account. Check it out carefully.
         // Remove to disable datadog integration - if enabling, remember to create an AWS Secret Manager entry with name and datadog/api-key and a key called "key" with the DataDog API key
         dataDogDomain: 'datadoghq.eu',
-        minReplicas: 2,
-        maxReplicas: 8,
+        minReplicas: 0,
+        maxReplicas: 0,
         kmsKeyARN: 'arn:aws:kms:eu-west-2:528757792527:key/960f4a8a-9799-4cc0-bc3c-b497ea36d887',
     },
     // EDIT: aws account number
@@ -50,8 +50,8 @@ export const CONFIG: {
         // Optionally add a long intake server for datadog. Note: this is based on the region of your account. Check it out carefully.
         // Remove to disable datadog integration - if enabling, remember to create an AWS Secret Manager entry with name and datadog/api-key and a key called "key" with the DataDog API key
         dataDogDomain: 'datadoghq.eu',
-        minReplicas: 1,
-        maxReplicas: 1,
+        minReplicas: 0,
+        maxReplicas: 0,
         kmsKeyARN: 'arn:aws:kms:eu-west-2:891612567040:key/8345e35f-7d75-4960-8707-34fe56fe12e9',
     },
 }
